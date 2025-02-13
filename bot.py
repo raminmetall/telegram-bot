@@ -5,6 +5,16 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.filters import Command
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+
+@dp.message(lambda message: message.text == "/miniapp")
+async def send_miniapp(msg: types.Message):
+    keyboard = InlineKeyboardMarkup()
+    web_app = WebAppInfo(url="https://index-7e6z.onrender.com")  # لینک هاست صفحه
+    button = InlineKeyboardButton(text="🚀 باز کردن مینی‌اپ", web_app=web_app)
+    keyboard.add(button)
+
+    await msg.answer("روی دکمه‌ی زیر کلیک کن تا مینی‌اپ باز بشه:", reply_markup=keyboard)
 
 TOKEN = "7687737572:AAGhchzRPEbsBKrotnrpFZbtCPwRvhkU4FU"
 ADMIN_ID = 6586406054  # آی‌دی ادمین
