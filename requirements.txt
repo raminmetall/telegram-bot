@@ -1,4 +1,3 @@
 aiogram
 python-dotenv
 mysql-connector-python
-sqlite3
