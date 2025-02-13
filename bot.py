@@ -6,15 +6,29 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.filters import Command
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from aiogram import Bot, Dispatcher, types
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo
+import asyncio
+
+TOKEN = "7687737572:AAGhchzRPEbsBKrotnrpFZbtCPwRvhkU4FU"
+bot = Bot(token=TOKEN)
+dp = Dispatcher()
+
+# ایجاد کیبورد با دکمه WebApp
+web_app_url = "https://your-host.com/index.html"  # اینجا لینک مینی اپلیکیشن رو بزار
+keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+keyboard.add(KeyboardButton("🚀 باز کردن مینی‌اپ", web_app=WebAppInfo(url=web_app_url)))
 
 @dp.message(lambda message: message.text == "/miniapp")
-async def send_miniapp(msg: types.Message):
-    keyboard = InlineKeyboardMarkup()
-    web_app = WebAppInfo(url="https://index-7e6z.onrender.com")  # لینک هاست صفحه
-    button = InlineKeyboardButton(text="🚀 باز کردن مینی‌اپ", web_app=web_app)
-    keyboard.add(button)
+async def send_miniapp(message: types.Message):
+    await message.answer("روی دکمه زیر کلیک کن تا مینی‌اپ باز بشه:", reply_markup=keyboard)
 
-    await msg.answer("روی دکمه‌ی زیر کلیک کن تا مینی‌اپ باز بشه:", reply_markup=keyboard)
+async def main():
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
 
 TOKEN = "7687737572:AAGhchzRPEbsBKrotnrpFZbtCPwRvhkU4FU"
 ADMIN_ID = 6586406054  # آی‌دی ادمین
